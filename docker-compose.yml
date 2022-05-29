@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "8878:80"
+    depends_on:
+      - app
+    container_name: nginx_docker
+
+  app:
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+        -   db
+    container_name: app_docker
+
+
+  db:
+      image: mysql:5.7
+      restart: always
+      volumes:
+          -   ./tmp/db:/var/lib/mysql
+      environment:
+          MYSQL_DATABASE: laradocker
+          MYSQL_ROOT_PASSWORD: root
+      ports:
+          - "8101:3306"
+      container_name: db_docker
+
+  npm:
+      image: node:14
+      working_dir: /var/www/home/adduser/Projects/LaraDockerPractice
+      entrypoint: [ "npm" ]
+      volumes:
+          - "./:/var/www/home/adduser/Projects/LaraDockerPractice"
