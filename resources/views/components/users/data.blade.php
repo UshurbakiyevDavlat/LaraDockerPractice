@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('components.layouts.main')
 @section('content')
     <table class="table">
         <thead>
