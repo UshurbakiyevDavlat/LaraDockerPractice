@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ Route::get('/', function () {
 });
 // Permission for new files or folders chmod -R 777 ./ && chmod -R 777 /folder path
 
-Route::get('/users',"UserController@index")->name('user.index');
+Route::get('/users',[UserController::class,'index'])->name('user.index');
 //Route::get('/post',"")->name('post.index');
 //Route::get('/about',"")->name('about.index');
 //Route::get('/contact',"")->name('contact.index');

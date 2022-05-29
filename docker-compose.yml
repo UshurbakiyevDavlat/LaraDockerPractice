@@ -40,3 +40,4 @@ services:
       entrypoint: [ "npm" ]
       volumes:
           - "./:/var/www/home/adduser/Projects/LaraDockerPractice"
+      container_name: npm_docker
