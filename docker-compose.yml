@@ -22,7 +22,7 @@ services:
     container_name: app_docker
 
 
-  db:
+  db: # docker-compose exec db bash =>  mysql -u root -p => show databases;
       image: mysql:5.7
       restart: always
       volumes:
@@ -34,7 +34,7 @@ services:
           - "8101:3306"
       container_name: db_docker
 
-  npm:
+  npm: # docker-compose run --rm npm run dev
       image: node:14
       working_dir: /var/www/home/adduser/Projects/LaraDockerPractice
       entrypoint: [ "npm" ]
