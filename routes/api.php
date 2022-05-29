@@ -18,7 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/users',"UserController@index")->name('user.index');
-//Route::get('/post',"")->name('post.index');
-//Route::get('/about',"")->name('about.index');d
-//Route::get('/contact',"")->name('contact.index');
+
