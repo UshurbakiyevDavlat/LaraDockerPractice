@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class layouts.main extends Component
+class users.data extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class layouts.main extends Component
      */
     public function render()
     {
-        return view('components.layouts.main');
+        return view('components.users.data');
     }
 }
