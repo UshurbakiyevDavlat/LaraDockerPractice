@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('components.users.data');
+        return view('components.users.index');
     }
 
     public function getUsers()

@@ -20,17 +20,19 @@ Route::get('/', function () {
 // Permission for new files or folders chmod -R 777 ./ && chmod -R 777 /folder path
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::prefix('users')->group(function (){
+        Route::get('/index', [UserController::class, 'index'])->name('user.index');
 
-    Route::get('/user/getAll', [UserController::class, 'getUsers'])->name('user.show');
-    Route::get('/user/withTrash', [UserController::class, 'getUsersWithTrashed'])->name('user.withTrash');
-    Route::get('/user/get_by_id', [UserController::class, 'getUser'])->name('user.show_by_id');
+        Route::get('/list/all', [UserController::class, 'getUsers'])->name('user.list');
+        Route::get('/list/withTrash', [UserController::class, 'getUsersWithTrashed'])->name('user.list.trash');
+        Route::get('/show', [UserController::class, 'getUser'])->name('user.show');
 
-    Route::post('/user/create', [UserController::class, 'create'])->name('user.create');
-    Route::get('/user/fake_create', [UserController::class, 'factory_create'])->name('user.fake_create');
+        Route::post('/store', [UserController::class, 'create'])->name('user.store');
+        Route::get('/fake_store', [UserController::class, 'factory_create'])->name('user.fake_store');
 
-    Route::put('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/update', [UserController::class, 'edit'])->name('user.update');
 
-    Route::delete('/user/delete', [UserController::class, 'delete'])->name('user.delete');
+        Route::delete('/delete', [UserController::class, 'delete'])->name('user.delete');
 
+    });
 });
