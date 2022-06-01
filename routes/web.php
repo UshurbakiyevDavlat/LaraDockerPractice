@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-// Permission for new files or folders chmod -R 777 ./ && chmod -R 777 /folder path
+// Permission for new files or folders chmod -R 777 ./
 
 Route::controller(UserController::class)->group(function () {
     Route::prefix('users')->group(function () {
@@ -38,3 +41,9 @@ Route::controller(UserController::class)->group(function () {
 
     });
 });
+
+Route::resources([
+    'claims' => ClaimController::class,
+    'infos' => InfoController::class,
+    'posts' => PostController::class,
+]);
