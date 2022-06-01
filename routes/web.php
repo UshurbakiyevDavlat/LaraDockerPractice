@@ -34,7 +34,7 @@ Route::controller(UserController::class)->group(function () {
 
         Route::patch('/{user}', [UserController::class, 'update'])->name('user.update');
 
-        Route::delete('/{user}', [UserController::class, 'delete'])->name('user.delete');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.delete');
 
     });
 });

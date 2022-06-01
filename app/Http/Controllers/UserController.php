@@ -78,13 +78,13 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         try {
             $user->delete();
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
-        return response(['success' => 1]);
+        return redirect()->route('user.index');
     }
 }
