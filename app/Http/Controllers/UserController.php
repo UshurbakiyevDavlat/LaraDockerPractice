@@ -12,23 +12,23 @@ class UserController extends Controller
         return view('components.users.index');
     }
 
-    public function getUsers()
+    public function list()
     {
         return User::all();
     }
 
-    public function getUsersWithTrashed()
+    public function all_and_trashed()
     {
         return User::withTrashed()->get();
     }
 
-    public function getUser(Request $request)
+    public function show(Request $request)
     {
         $user = User::find($request->id);
         return $user;
     }
 
-    public function factory_create()
+    public function factory_store()
     {
         try {
             $user = User::factory()->create();
@@ -38,7 +38,7 @@ class UserController extends Controller
         return response(['success' => 1, 'user' => $user]);
     }
 
-    public function create(Request $data)
+    public function store(Request $data)
     {
         try {
             $user = User::create($data->toArray());
@@ -48,7 +48,7 @@ class UserController extends Controller
         return $user;
     }
 
-    public function edit(Request $changed_data)
+    public function update(Request $changed_data)
     {
         try {
             $user = User::find($changed_data->id);

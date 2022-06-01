@@ -21,18 +21,18 @@ Route::get('/', function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::prefix('users')->group(function (){
-        Route::get('/index', [UserController::class, 'index'])->name('user.index');
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
 
-        Route::get('/list/all', [UserController::class, 'getUsers'])->name('user.list');
-        Route::get('/list/withTrash', [UserController::class, 'getUsersWithTrashed'])->name('user.list.trash');
-        Route::get('/show', [UserController::class, 'getUser'])->name('user.show');
+        Route::get('/list/all', [UserController::class, 'list'])->name('user.list');
+        Route::get('/list/withTrash', [UserController::class, 'all_and_trashed'])->name('user.list.trash');
+        Route::get('/show', [UserController::class, 'show'])->name('user.show');
 
-        Route::post('/store', [UserController::class, 'create'])->name('user.store');
-        Route::get('/fake_store', [UserController::class, 'factory_create'])->name('user.fake_store');
+        Route::post('/', [UserController::class, 'store'])->name('user.store');
+        Route::get('/fake_store', [UserController::class, 'factory_store'])->name('user.fake_store');
 
-        Route::put('/update', [UserController::class, 'edit'])->name('user.update');
+        Route::put('/', [UserController::class, 'update'])->name('user.update');
 
-        Route::delete('/delete', [UserController::class, 'delete'])->name('user.delete');
+        Route::delete('/', [UserController::class, 'delete'])->name('user.delete');
 
     });
 });
