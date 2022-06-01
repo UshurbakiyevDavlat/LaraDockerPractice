@@ -1,8 +1,4 @@
 <?php
-
-use App\Http\Controllers\ClaimController;
-use App\Http\Controllers\InfoController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +39,7 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::resources([
-    'claims' => ClaimController::class,
-    'infos' => InfoController::class,
-    'posts' => PostController::class,
+    'claim' => ClaimController::class,
+    'info' => InfoController::class,
+    'post' => PostController::class,
 ]);
