@@ -9,7 +9,18 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('components.users.index');
+        $users = self::list();
+        return view('components.users.index',compact('users'));
+    }
+
+    public function create()
+    {
+        return view('components.users.create');
+    }
+
+    public function edit()
+    {
+        return view('components.users.edit');
     }
 
     public function list()
@@ -22,9 +33,8 @@ class UserController extends Controller
         return User::withTrashed()->get();
     }
 
-    public function show(Request $request)
+    public function show(User $user): User
     {
-        $user = User::find($request->id);
         return $user;
     }
 
@@ -38,31 +48,39 @@ class UserController extends Controller
         return response(['success' => 1, 'user' => $user]);
     }
 
-    public function store(Request $data)
+    public function store(User $user)
     {
+        $data = \request()->validate([
+            'name' => 'string',
+            'email' => 'email',
+            'password' => 'string'
+        ]);
         try {
-            $user = User::create($data->toArray());
+            User::create($data);
         } catch (\Exception $exception) {
             return $exception;
         }
         return $user;
     }
 
-    public function update(Request $changed_data)
+    public function update(User $user)
     {
+        $data = request()->validate([
+            'name' => 'string',
+            'email' => 'string',
+            'password' => 'string'
+        ]);
         try {
-            $user = User::find($changed_data->id);
-            $user->update($changed_data->toArray());
+            $user->update($data);
         } catch (\Exception $exception) {
             return $exception;
         }
         return $user;
     }
 
-    public function delete(Request $request)
+    public function delete(User $user)
     {
         try {
-            $user = User::find($request->id);
             $user->delete();
         } catch (\Exception $exception) {
             return $exception->getMessage();
