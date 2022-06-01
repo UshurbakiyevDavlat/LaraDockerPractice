@@ -27,7 +27,6 @@ services:
       restart: always
       volumes:
           -   ./tmp/db:/var/lib/mysql
-      command: [--ignore-db-dir=lost+found]
       environment:
           MYSQL_DATABASE: laradocker
           MYSQL_ROOT_PASSWORD: root
@@ -40,5 +39,5 @@ services:
       working_dir: /var/www/home/adduser/Projects/LaraDockerPractice
       entrypoint: [ "npm" ]
       volumes:
-          - "./:/var/www/home/adduser/Projects/LaraDockerPractice"
+          - "./:/var/www/home/davlatuser/LaraDockerPractice"
       container_name: npm_docker
