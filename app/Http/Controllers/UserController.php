@@ -18,9 +18,9 @@ class UserController extends Controller
         return view('components.users.create');
     }
 
-    public function edit()
+    public function edit(User $user)
     {
-        return view('components.users.edit');
+        return view('components.users.edit',compact('user'));
     }
 
     public function list()
@@ -48,7 +48,7 @@ class UserController extends Controller
         return response(['success' => 1, 'user' => $user]);
     }
 
-    public function store(User $user)
+    public function store(Request $request)
     {
         $data = \request()->validate([
             'name' => 'string',
@@ -60,14 +60,14 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             return $exception;
         }
-        return $user;
+        return redirect()->route('user.index');
     }
 
     public function update(User $user)
     {
         $data = request()->validate([
             'name' => 'string',
-            'email' => 'string',
+            'email' => 'email',
             'password' => 'string'
         ]);
         try {
@@ -75,7 +75,7 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             return $exception;
         }
-        return $user;
+        return redirect()->back();
     }
 
     public function delete(User $user)

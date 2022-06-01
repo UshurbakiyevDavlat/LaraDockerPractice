@@ -29,10 +29,10 @@ Route::controller(UserController::class)->group(function () {
         Route::get('/list/withTrash', [UserController::class, 'all_and_trashed'])->name('user.list.trash');
         Route::get('/{user}', [UserController::class, 'show'])->name('user.show');
 
-        Route::post('/{user}', [UserController::class, 'store'])->name('user.store');
+        Route::post('/', [UserController::class, 'store'])->name('user.store');
         Route::get('/fake_store', [UserController::class, 'factory_store'])->name('user.fake_store');
 
-        Route::put('/{user}', [UserController::class, 'update'])->name('user.update');
+        Route::patch('/{user}', [UserController::class, 'update'])->name('user.update');
 
         Route::delete('/{user}', [UserController::class, 'delete'])->name('user.delete');
 
