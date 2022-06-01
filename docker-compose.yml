@@ -27,6 +27,7 @@ services:
       restart: always
       volumes:
           -   ./tmp/db:/var/lib/mysql
+      command: [--ignore-db-dir=lost+found]
       environment:
           MYSQL_DATABASE: laradocker
           MYSQL_ROOT_PASSWORD: root
