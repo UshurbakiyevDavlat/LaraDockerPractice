@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Info;
 use App\Models\Post;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -31,11 +37,20 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Application|ResponseFactory|RedirectResponse|Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            ''
+        ]);
+        try {
+            Info::create($request->toArray());
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return \response('error see logs');
+        }
+        return redirect()->route('components.infos.index');
     }
 
     /**
@@ -65,21 +80,36 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return Application|ResponseFactory|RedirectResponse|Response
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->validate([
+            ''
+        ]);
+        try {
+            $post->update($data);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return \response('error see logs');
+        }
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return Application|ResponseFactory|RedirectResponse|Response
      */
     public function destroy(Post $post)
     {
-        //
+        try {
+            $post->delete();
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return \response('error see logs');
+        }
+        return redirect()->route('components.posts.index');
     }
 }
