@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function index()
     {
         $users = self::list();
@@ -55,6 +61,7 @@ class UserController extends Controller
             'email' => 'email',
             'password' => 'string'
         ]);
+        $data['password'] = bcrypt($data['password']);
         try {
             User::create($data);
         } catch (\Exception $exception) {

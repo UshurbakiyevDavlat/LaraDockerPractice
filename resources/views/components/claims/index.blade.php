@@ -1,14 +1,13 @@
 @extends('components.layouts.main')
 @section('content')
-    <a href="{{route('user.create')}}">
+    <a href="{{route('claim.create')}}">
         <button class="btn btn-success">Add new one</button>
     </a>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
+            <th scope="col">Comment</th>
             <th scope="col">Created</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -16,16 +15,15 @@
         </thead>
         <tbody>
 
-        @foreach($users as $user)
+        @foreach($claims as $claim)
             <tr>
-                <th scope="row">{{$user->id}}</th>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->created_at}}</td>
-                <td><a href="{{route('user.edit',$user)}}">
+                <th scope="row">{{$claim->id}}</th>
+                <td>{{$claim->comment}}</td>
+                <td>{{$claim->created_at}}</td>
+                <td><a href="{{route('claim.edit',$claim)}}">
                         <button class="btn btn-primary">Edit</button>
                     </a></td>
-                <form action="{{route('user.delete',$user)}}" method="post">
+                <form action="{{route('claim.destroy',$claim)}}" method="post">
                     @csrf
                     @method("delete")
                     <td>

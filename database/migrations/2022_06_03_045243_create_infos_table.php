@@ -20,6 +20,7 @@ class CreateInfosTable extends Migration
             $table->integer('status');
             $table->timestamp('expire');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

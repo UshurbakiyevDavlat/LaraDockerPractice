@@ -1,22 +1,24 @@
 @extends('components.layouts.main')
 @section('content')
-    <form action="{{route('user.store')}}" method="post">
+    <form action="{{route('info.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter name">
-            <small id="nameHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Enter title">
+            <small id="titleHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
         </div>
         <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="status">status</label>
+            <input type="text" class="form-control" id="status" name="status" aria-describedby="statusHelp" placeholder="Enter status">
+            <small id="statusHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-        </div>
+        <select class="form-select m-auto" name="user_id">
+            @foreach($users as $user)
+                <option class="" value="{{$user->id}}">{{$user->name}}</option>
+            @endforeach
+        </select>
+
         <button type="submit" class="btn btn-primary mt-4">Submit</button>
-        <a href="{{route('user.index')}}"><button type="button" class="btn btn-primary mt-4">back</button></a>
+        <a href="{{route('info.index')}}"><button type="button" class="btn btn-primary mt-4">back</button></a>
     </form>
 @endsection

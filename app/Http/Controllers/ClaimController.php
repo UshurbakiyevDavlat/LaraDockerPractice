@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Claim;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Log;
 
 class ClaimController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +27,8 @@ class ClaimController extends Controller
      */
     public function index()
     {
-        return view('components.claims.index');
+        $claims = Claim::all();
+        return view('components.claims.index', compact('claims'));
     }
 
     /**
@@ -31,7 +38,8 @@ class ClaimController extends Controller
      */
     public function create()
     {
-        return view('components.claims.create');
+        $users = User::all();
+        return view('components.claims.create', compact('users'));
     }
 
     /**
@@ -43,7 +51,8 @@ class ClaimController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            ''
+            'user_id' => 'int',
+            'comment' => 'string'
         ]);
         try {
             Claim::create($request->toArray());
@@ -51,7 +60,7 @@ class ClaimController extends Controller
             Log::error($exception->getMessage());
             return \response('error see logs');
         }
-        return redirect()->route('components.claims.index');
+        return redirect()->route('claim.index');
     }
 
     /**
@@ -62,7 +71,7 @@ class ClaimController extends Controller
      */
     public function show(Claim $claim)
     {
-        return view('components.claims.detail',compact('claim'));
+        return view('components.claims.detail', compact('claim'));
     }
 
     /**
@@ -73,7 +82,8 @@ class ClaimController extends Controller
      */
     public function edit(Claim $claim)
     {
-        return view('components.claims.edit', compact('claim'));
+        $users = User::all();
+        return view('components.claims.edit', compact('claim', 'users'));
     }
 
     /**
@@ -86,7 +96,8 @@ class ClaimController extends Controller
     public function update(Request $request, Claim $claim)
     {
         $data = $request->validate([
-            ''
+            'user_id' => 'int',
+            'comment' => 'string'
         ]);
         try {
             $claim->update($data);
@@ -94,7 +105,7 @@ class ClaimController extends Controller
             Log::error($exception->getMessage());
             return \response('error see logs');
         }
-        return redirect()->back();
+        return redirect()->route('claim.index');
     }
 
     /**
@@ -111,6 +122,6 @@ class ClaimController extends Controller
             Log::error($exception->getMessage());
             return \response('error see logs');
         }
-        return redirect()->route('components.claims.index');
+        return redirect()->route('claim.index');
     }
 }
