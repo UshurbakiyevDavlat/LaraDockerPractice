@@ -10,6 +10,7 @@
             <th scope="col">Image</th>
             <th scope="col">Title</th>
             <th scope="col">Content</th>
+            <th scope="col">User</th>
             <th scope="col">Created</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -25,6 +26,7 @@
                     </div></td>
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
+                <td>{{$post->users->name}}</td>
                 <td>{{$post->created_at}}</td>
                 <td><a href="{{route('post.edit',$post)}}">
                         <button class="btn btn-primary">Edit</button>

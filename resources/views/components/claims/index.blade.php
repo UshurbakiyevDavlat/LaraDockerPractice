@@ -8,6 +8,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Comment</th>
+            <th scope="col">User</th>
             <th scope="col">Created</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -19,6 +20,7 @@
             <tr>
                 <th scope="row">{{$claim->id}}</th>
                 <td>{{$claim->comment}}</td>
+                <td>{{$claim->users->name}}</td>
                 <td>{{$claim->created_at}}</td>
                 <td><a href="{{route('claim.edit',$claim)}}">
                         <button class="btn btn-primary">Edit</button>

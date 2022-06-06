@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -41,4 +42,9 @@ class Info extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime'
     ];
+
+    public function users (): BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }
