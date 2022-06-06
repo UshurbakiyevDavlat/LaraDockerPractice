@@ -11,6 +11,7 @@
             <th scope="col">Title</th>
             <th scope="col">Content</th>
             <th scope="col">User</th>
+            <th scope="col">Tags</th>
             <th scope="col">Created</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -21,12 +22,19 @@
         @foreach($posts as $post)
             <tr>
                 <th scope="row">{{$post->id}}</th>
-                <td> <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <td>
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
                         <img src="/storage/image/{{$post->image}}" alt="" width="100">
-                    </div></td>
+                    </div>
+                </td>
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
                 <td>{{$post->users->name}}</td>
+                <td>
+                    @foreach($post->tags as $tag)
+                        {{$tag->name}}
+                    @endforeach
+                </td>
                 <td>{{$post->created_at}}</td>
                 <td><a href="{{route('post.edit',$post)}}">
                         <button class="btn btn-primary">Edit</button>
