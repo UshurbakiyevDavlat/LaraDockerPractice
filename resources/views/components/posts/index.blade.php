@@ -11,6 +11,7 @@
             <th scope="col">Title</th>
             <th scope="col">Content</th>
             <th scope="col">User</th>
+            <th scope="col">Category</th>
             <th scope="col">Tags</th>
             <th scope="col">Created</th>
             <th scope="col">Edit</th>
@@ -30,6 +31,7 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
                 <td>{{$post->users->name}}</td>
+                <td>{{$post->category->title}}</td>
                 <td>
                     @foreach($post->tags as $tag)
                         {{$tag->name}}

@@ -10,6 +10,7 @@
         </div>
         <select class="form-select m-auto" name="user_id">
             @foreach($users as $user)
+                {{$user->id == $claim->users->id ? 'selected' : ''}}
                 <option value="{{$user->id}}">{{$user->name}}</option>
             @endforeach
         </select>

@@ -13,9 +13,13 @@
             <input type="text" class="form-control" id="content" name="content" value="{{$post->content}}" aria-describedby="contentHelp" placeholder="Enter text content">
             <small id="contentHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+
         <select class="form-select m-auto" name="user_id">
             @foreach($users as $user)
-                <option value="{{$user->id}}">{{$user->name}}</option>
+                <option
+                    {{$user->id == $post->users->id ? 'selected' : ''}}
+                    value="{{$user->id}}">{{$user->name}}
+                </option>
             @endforeach
         </select>
 
