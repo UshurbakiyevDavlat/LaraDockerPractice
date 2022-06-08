@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Info;
 use App\Models\Post;
+use App\Models\PostCategory;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -41,7 +43,9 @@ class PostController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('components.posts.create', compact('users'));
+        $categories = PostCategory::all();
+        $tags = Tag::all();
+        return view('components.posts.create', compact('users', 'categories', 'tags'));
     }
 
     /**
@@ -56,14 +60,23 @@ class PostController extends Controller
             'title' => 'string',
             'content' => 'string',
             'user_id' => 'int',
-            'image' => 'image|nullable|max: 1999'
+            'image' => 'image|nullable|max: 1999',
+            'category_id' => 'int',
+            'tags' => 'array'
         ]);
-
+        $tags = $data['tags'];
+        unset($data['tags']);
         $fileNameToStore = self::img_upload(\request());
 
         try {
             $data['image'] = $fileNameToStore;
-            Post::create($data);
+            $post = Post::create($data);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return \response('error see logs');
+        }
+        try {
+            $post->tags()->attach($tags,['created_at'=>date('Y-m-d H:i:s')]);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return \response('error see logs');
@@ -139,7 +152,7 @@ class PostController extends Controller
     public function img_upload($request): string
     {
         if ($request->hasFile('image')) {
-            $filenameWithExt =$request->file('image')->getClientOriginalName();
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
 
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();

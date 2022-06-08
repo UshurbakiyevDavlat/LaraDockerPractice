@@ -12,11 +12,31 @@
             <input type="text" class="form-control" id="content" name="content" aria-describedby="contentHelp" placeholder="Enter text content">
             <small id="contentHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <select class="form-select m-auto" name="user_id">
-            @foreach($users as $user)
-            <option class="" value="{{$user->id}}">{{$user->name}}</option>
-            @endforeach
-        </select>
+        <div>
+            <label for="users">Users</label>
+            <select id="users" class="form-select m-auto" name="user_id">
+                @foreach($users as $user)
+                    <option class="" value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mt-3">
+            <label for="categories">Category</label>
+            <select id="categories" class="form-select m-auto" name="category_id">
+                @foreach($categories as $cat)
+                    <option class="" value="{{$cat->id}}">{{$cat->title}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mt-3">
+            <label for="tags">Tags</label>
+            <select multiple id="tags" class="form-control" name="tags[]">
+                @foreach($tags as $tag)
+                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
+            </select>
+        </div>
 
         <input type="file" class="form-control mt-4" name="image" id="image">
 
