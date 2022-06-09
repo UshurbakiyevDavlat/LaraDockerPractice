@@ -57,12 +57,12 @@ class PostController extends Controller
     public function store(Post $post)
     {
         $data = \request()->validate([
-            'title' => 'string',
-            'content' => 'string',
-            'user_id' => 'int',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'user_id' => 'required|int',
             'image' => 'image|nullable|max: 1999',
-            'category_id' => 'int',
-            'tags' => 'array'
+            'category_id' => 'required|int',
+            'tags' => 'required|array'
         ]);
         $tags = $data['tags'];
         unset($data['tags']);
