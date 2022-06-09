@@ -24,7 +24,7 @@
             <tr>
                 <th scope="row">{{$post->id}}</th>
                 <td>
-                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                    <div class="col-md-10 d-flex align-items-center justify-content-center">
                         <img src="/storage/image/{{$post->image}}" alt="" width="100">
                     </div>
                 </td>

@@ -23,6 +23,27 @@
             @endforeach
         </select>
 
+        <div class="mt-3">
+            <label for="categories">Category</label>
+            <select id="categories" class="form-select m-auto" name="category_id">
+                @foreach($categories as $cat)
+                    <option
+                        {{$cat->id == $post->category->id ? 'selected' : ''}}
+                        class="" value="{{$cat->id}}">{{$cat->title}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mt-3">
+            <label for="tags">Tags</label>
+            <select multiple id="tags" class="form-control" name="tags[]">
+                @foreach($tags as $tag)
+                    <option
+                        {{$post->tags->pluck('id')->contains($tag->id) ? "selected" : ''}}
+                        value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
+            </select>
+        </div>
 
         <div class="col-md-6 d-flex align-items-center justify-content-center">
             <img src="/storage/image/{{$post->image}}" alt="" width="100">

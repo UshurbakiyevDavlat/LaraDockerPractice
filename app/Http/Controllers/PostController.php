@@ -104,7 +104,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $users = User::all();
-        return view('components.posts.edit', compact('post', 'users'));
+        $tags = Tag::all();
+        $categories = PostCategory::all();
+        return view('components.posts.edit', compact('post', 'users','tags','categories'));
     }
 
     /**
@@ -120,11 +122,16 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'string',
             'content' => 'string',
-            'user_id' => 'int'
+            'user_id' => 'int',
+            'category_id' => 'int',
+            'tags' => 'array'
         ]);
         $data['image'] = $fileNameToStore;
+        $tags = $data['tags'];
+        unset($data['tags']);
         try {
             $post->update($data);
+            $post->tags()->sync($tags);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return \response('error see logs');
