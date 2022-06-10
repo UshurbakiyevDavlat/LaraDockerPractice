@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Info;
 use App\Models\Post;
-use App\Models\PostCategory;
+use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -43,7 +43,7 @@ class PostController extends Controller
     public function create()
     {
         $users = User::all();
-        $categories = PostCategory::all();
+        $categories = Category::all();
         $tags = Tag::all();
         return view('components.posts.create', compact('users', 'categories', 'tags'));
     }
@@ -105,7 +105,7 @@ class PostController extends Controller
     {
         $users = User::all();
         $tags = Tag::all();
-        $categories = PostCategory::all();
+        $categories = Category::all();
         return view('components.posts.edit', compact('post', 'users','tags','categories'));
     }
 
