@@ -4,6 +4,13 @@ use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Tag\CreateController;
+use App\Http\Controllers\Tag\DestroyController;
+use App\Http\Controllers\Tag\EditController;
+use App\Http\Controllers\Tag\IndexController;
+use App\Http\Controllers\Tag\ListController;
+use App\Http\Controllers\Tag\StoreController;
+use App\Http\Controllers\Tag\UpdateController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', static function () {
     return view('welcome');
 });
 // Permission for new files or folders sudo chmod -R 777 ./
@@ -51,8 +58,17 @@ Route::resources([
     'post' => PostController::class,
 ]);
 
-Route::prefix('tags')->group(function () {
-    Route::get('/list', [TagController::class, 'list'])->name('tag.list');
+Route::group(['namespace' => 'Tag'], static function (){
+   Route::prefix('tags')->group(function (){
+       Route::get('/',[IndexController::class,'__invoke'])->name('tag.index');
+       Route::get('/create',[CreateController::class,'__invoke'])->name('tag.create');
+       Route::get('/edit',[EditController::class,'__invoke'])->name('tag.edit');
+       Route::get('/list',[ListController::class,'__invoke'])->name('tag.list');
+
+       Route::post('/',[StoreController::class,'__invoke'])->name('tag.store');
+       Route::patch('/',[UpdateController::class,'__invoke'])->name('tag.update');
+       Route::delete('/',[DestroyController::class,'__invoke'])->name('tag.delete');
+   });
 });
 
 Auth::routes();

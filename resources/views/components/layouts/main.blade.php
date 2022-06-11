@@ -33,6 +33,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('info.index')}}">Info</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('tag.index')}}">Tags</a>
+                    </li>
                 </ul>
             </div>
         </nav>
