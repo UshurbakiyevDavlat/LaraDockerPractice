@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Tag;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tag\StoreRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class StoreController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(StoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'status' => 'required|int'
-        ]);
+        $data = $request->validated();
         try {
-            Tag::create($request->only('name', 'status'));
+            Tag::create($data);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return \response('error see logs');
