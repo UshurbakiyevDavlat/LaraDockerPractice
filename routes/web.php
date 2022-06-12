@@ -62,12 +62,12 @@ Route::group(['namespace' => 'Tag'], static function (){
    Route::prefix('tags')->group(function (){
        Route::get('/',[IndexController::class,'__invoke'])->name('tag.index');
        Route::get('/create',[CreateController::class,'__invoke'])->name('tag.create');
-       Route::get('/edit',[EditController::class,'__invoke'])->name('tag.edit');
+       Route::get('{tag}/edit',[EditController::class,'__invoke'])->name('tag.edit');
        Route::get('/list',[ListController::class,'__invoke'])->name('tag.list');
 
-       Route::post('/',[StoreController::class,'__invoke'])->name('tag.store');
-       Route::patch('/',[UpdateController::class,'__invoke'])->name('tag.update');
-       Route::delete('/',[DestroyController::class,'__invoke'])->name('tag.delete');
+       Route::post('/store',[StoreController::class,'__invoke'])->name('tag.store');
+       Route::patch('/update/{tag}',[UpdateController::class,'__invoke'])->name('tag.update');
+       Route::delete('/destroy/{tag}',[DestroyController::class,'__invoke'])->name('tag.destroy');
    });
 });
 
