@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
          User::factory(100)->create();
-         Category::factory(10)->create();
+         $cat = Category::factory(10)->create();
          $tags = Tag::factory(10)->create();
          Claim::factory(4)->create();
          Info::factory(4)->create();
