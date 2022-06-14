@@ -52,4 +52,7 @@
         @endforeach
         </tbody>
     </table>
+    <div>
+        {{$posts->render()}}
+    </div>
 @endsection
