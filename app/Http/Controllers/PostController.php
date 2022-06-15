@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\PostFilter;
+use App\Http\Requests\Post\FilterRequest;
 use App\Models\Info;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
@@ -28,10 +31,13 @@ class PostController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     * @throws BindingResolutionException
      */
-    public function index()
+    public function index(FilterRequest $request)
     {
-        $posts = Post::paginate(10);
+        $data = $request->validated();
+        $filter = app()->make(PostFilter::class,['queryParams'=>array_filter($data)]);
+        $posts = Post::filter($filter)->paginate(10);
         return view('components.posts.index', compact('posts'));
     }
 
@@ -66,7 +72,7 @@ class PostController extends Controller
         ]);
         $tags = $data['tags'];
         unset($data['tags']);
-        $fileNameToStore = self::img_upload(\request());
+        $fileNameToStore = $this->img_upload(\request());
 
         try {
             $data['image'] = $fileNameToStore;
@@ -118,7 +124,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $fileNameToStore = self::img_upload(\request());
+        $fileNameToStore = $this->img_upload(\request());
         $data = $request->validate([
             'title' => 'string',
             'content' => 'string',

@@ -53,6 +53,6 @@
         </tbody>
     </table>
     <div>
-        {{$posts->render()}}
+        {{$posts->withQueryString()->links()}}
     </div>
 @endsection
