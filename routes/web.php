@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Post\IndexController as AdminIndex;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoController;
@@ -69,6 +70,12 @@ Route::group(['namespace' => 'Tag'], static function (){
        Route::patch('/update/{tag}',[UpdateController::class,'__invoke'])->name('tag.update');
        Route::delete('/destroy/{tag}',[DestroyController::class,'__invoke'])->name('tag.destroy');
    });
+});
+
+Route::group(['namespace'=>'Admin','prefix'=>'admin'], static function(){
+    Route::group(['namespace'=>'Post'], static function(){
+        Route::get('index',[AdminIndex::class,'__invoke'])->name('admin.post.index');
+    });
 });
 
 Auth::routes();
