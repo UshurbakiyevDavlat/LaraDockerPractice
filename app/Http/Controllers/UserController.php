@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = self::list();
-        return view('components.users.index',compact('users'));
+        return view('components.users.index', compact('users'));
     }
 
     public function create()
@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('components.users.edit',compact('user'));
+        return view('components.users.edit', compact('user'));
     }
 
     public function list()

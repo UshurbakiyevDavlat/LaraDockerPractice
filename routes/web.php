@@ -12,7 +12,6 @@ use App\Http\Controllers\Tag\IndexController;
 use App\Http\Controllers\Tag\ListController;
 use App\Http\Controllers\Tag\StoreController;
 use App\Http\Controllers\Tag\UpdateController;
-use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -59,22 +58,22 @@ Route::resources([
     'post' => PostController::class,
 ]);
 
-Route::group(['namespace' => 'Tag'], static function (){
-   Route::prefix('tags')->group(function (){
-       Route::get('/',[IndexController::class,'__invoke'])->name('tag.index');
-       Route::get('/create',[CreateController::class,'__invoke'])->name('tag.create');
-       Route::get('{tag}/edit',[EditController::class,'__invoke'])->name('tag.edit');
-       Route::get('/list',[ListController::class,'__invoke'])->name('tag.list');
+Route::group(['namespace' => 'Tag'], static function () {
+    Route::prefix('tags')->group(function () {
+        Route::get('/', [IndexController::class, '__invoke'])->name('tag.index');
+        Route::get('/create', [CreateController::class, '__invoke'])->name('tag.create');
+        Route::get('{tag}/edit', [EditController::class, '__invoke'])->name('tag.edit');
+        Route::get('/list', [ListController::class, '__invoke'])->name('tag.list');
 
-       Route::post('/store',[StoreController::class,'__invoke'])->name('tag.store');
-       Route::patch('/update/{tag}',[UpdateController::class,'__invoke'])->name('tag.update');
-       Route::delete('/destroy/{tag}',[DestroyController::class,'__invoke'])->name('tag.destroy');
-   });
+        Route::post('/store', [StoreController::class, '__invoke'])->name('tag.store');
+        Route::patch('/update/{tag}', [UpdateController::class, '__invoke'])->name('tag.update');
+        Route::delete('/destroy/{tag}', [DestroyController::class, '__invoke'])->name('tag.destroy');
+    });
 });
 
-Route::group(['namespace'=>'Admin','prefix'=>'admin'], static function(){
-    Route::group(['namespace'=>'Post'], static function(){
-        Route::get('index',[AdminIndex::class,'__invoke'])->name('admin.post.index');
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], static function () {
+    Route::group(['namespace' => 'Post'], static function () {
+        Route::get('index', [AdminIndex::class, '__invoke'])->name('admin.post.index');
     });
 });
 

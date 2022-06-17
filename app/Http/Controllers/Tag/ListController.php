@@ -9,6 +9,6 @@ class ListController extends Controller
 {
     public function __invoke()
     {
-       return Tag::all();
+        return Tag::all();
     }
 }

@@ -29,7 +29,7 @@ class InfoController extends Controller
     public function index()
     {
         $infos = Info::all();
-        return view('components.infos.index',compact('infos'));
+        return view('components.infos.index', compact('infos'));
     }
 
     /**
@@ -40,7 +40,7 @@ class InfoController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('components.infos.create',compact('users'));
+        return view('components.infos.create', compact('users'));
     }
 
     /**
@@ -85,7 +85,7 @@ class InfoController extends Controller
     public function edit(Info $info)
     {
         $users = User::all();
-        return view('components.infos.edit',compact('users','info'));
+        return view('components.infos.edit', compact('users', 'info'));
     }
 
     /**

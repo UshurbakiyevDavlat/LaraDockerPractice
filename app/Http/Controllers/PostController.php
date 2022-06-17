@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
-use App\Models\Info;
-use App\Models\Post;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -36,7 +35,7 @@ class PostController extends Controller
     public function index(FilterRequest $request)
     {
         $data = $request->validated();
-        $filter = app()->make(PostFilter::class,['queryParams'=>array_filter($data)]);
+        $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
         $posts = Post::filter($filter)->paginate(10);
         return view('components.posts.index', compact('posts'));
     }
@@ -82,7 +81,7 @@ class PostController extends Controller
             return \response('error see logs');
         }
         try {
-            $post->tags()->attach($tags,['created_at'=>date('Y-m-d H:i:s')]);
+            $post->tags()->attach($tags, ['created_at' => date('Y-m-d H:i:s')]);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return \response('error see logs');
@@ -112,7 +111,7 @@ class PostController extends Controller
         $users = User::all();
         $tags = Tag::all();
         $categories = Category::all();
-        return view('components.posts.edit', compact('post', 'users','tags','categories'));
+        return view('components.posts.edit', compact('post', 'users', 'tags', 'categories'));
     }
 
     /**
