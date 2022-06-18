@@ -15,13 +15,20 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                        @if(\Illuminate\Support\Facades\Session::get('error'))
+                            <div class="btn-danger">{{\Illuminate\Support\Facades\Session::get('error')}}</div>
+                            <a href="{{route('home')}}"><button class="btn-success" name="back">Ok</button></a>
+                        @else
                     <ul>
+                        <li><a href="{{route('admin.post.index')}}">Admin page</a></li>
                         <li><a href="{{route('info.index')}}">Info</a></li>
                         <li><a href="{{route('user.index')}}">Users</a></li>
                         <li><a href="{{route('post.index')}}">Posts</a></li>
                         <li><a href="{{route('claim.index')}}">Claims</a></li>
+                        <li><a href="{{route('tag.index')}}">Tags</a></li>
 
                     </ul>
+                        @endif
                 </div>
             </div>
         </div>

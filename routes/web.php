@@ -58,7 +58,7 @@ Route::resources([
     'post' => PostController::class,
 ]);
 
-Route::group(['namespace' => 'Tag'], static function () {
+Route::group(['namespace' => 'Tag','middleware' => 'admin'], static function () {
     Route::prefix('tags')->group(function () {
         Route::get('/', [IndexController::class, '__invoke'])->name('tag.index');
         Route::get('/create', [CreateController::class, '__invoke'])->name('tag.create');
@@ -71,7 +71,7 @@ Route::group(['namespace' => 'Tag'], static function () {
     });
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], static function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware' => 'admin'], static function () {
     Route::group(['namespace' => 'Post'], static function () {
         Route::get('index', [AdminIndex::class, '__invoke'])->name('admin.post.index');
     });

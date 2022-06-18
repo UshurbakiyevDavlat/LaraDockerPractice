@@ -18,7 +18,7 @@ class AdminAccess
      * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next){
-        if (Auth::user() &&  Auth::user()->email == "davlat.accdev@gmail.com") {
+        if (auth()->user() && auth()->user()->role === 'admin') {
             return $next($request);
         }
 
