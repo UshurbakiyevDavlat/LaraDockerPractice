@@ -9,8 +9,13 @@ use App\Models\Post;
 
 class IndexController extends Controller
 {
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function __invoke(FilterRequest $request)
     {
+        $this->authorize('view',auth()->user());
         $data = $request->validated();
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
         $posts = Post::filter($filter)->paginate(10);
