@@ -58,6 +58,8 @@ Route::resources([
     'post' => PostController::class,
 ]);
 
+Route::get('postList',[PostController::class,'listPosts'])->name('post.list');
+
 Route::group(['namespace' => 'Tag','middleware' => 'admin'], static function () {
     Route::prefix('tags')->group(function () {
         Route::get('/', [IndexController::class, '__invoke'])->name('tag.index');

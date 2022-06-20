@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -15,6 +16,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
@@ -89,6 +91,22 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
+
+    /**
+     *  List posts
+     * @return AnonymousResourceCollection
+     * @throws BindingResolutionException
+     */
+    public function listPosts(FilterRequest $request): AnonymousResourceCollection
+    {
+        $data = $request->validated();
+        $page = $request['page'] ?? 1;
+        $per_page = $request['per_page'] ?? 10;
+        $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
+        $posts = Post::filter($filter)->paginate($per_page,['*'],'page',$page);
+
+        return  PostResource::collection($posts);
+    }
     /**
      * Display the specified resource.
      *
