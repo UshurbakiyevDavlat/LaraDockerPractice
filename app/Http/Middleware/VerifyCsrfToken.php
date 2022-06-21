@@ -12,14 +12,12 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        // it is for postman check,
-        // TODO delete it, when finish with it
-        // TODO check how to make Patch work from postman
-        '/users',
-        '/users/*',
-        'login',
-        'logout',
-        'post',
-        'post/*',
+        // If you want check async auth from web.php
+//        '/users',
+//        '/users/*',
+//        'login',
+//        'logout',
+//        'post',
+//        'post/*',
     ];
 }
