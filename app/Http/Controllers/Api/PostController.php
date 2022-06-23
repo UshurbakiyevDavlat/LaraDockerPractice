@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\ApiFilterRequest;
+use App\Http\Services\Post\Service;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    protected $service;
+
+    public function __construct()
+    {
+        $this->service = new Service();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param ApiFilterRequest $request
+     * @param Post $post
+     *
+     */
+    public function store(ApiFilterRequest $request, Post $post)
+    {
+        $data = $request->validated();
+        return $this->service->store($post, $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param ApiFilterRequest $request
+     * @param Post $post
+     *
+     */
+    public function update(ApiFilterRequest $request, Post $post): void
+    {
+        $data = $request->validated();
+        $this->service->store($post, $data);
+    }
+}

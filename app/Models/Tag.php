@@ -13,6 +13,7 @@ class Tag extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'id',
         'name',
         'status'
     ];

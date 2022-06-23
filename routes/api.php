@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Post\IndexController;
+use App\Http\Controllers\Api\PostController as ApiPostController;
 use App\Http\Controllers\JwtAuth\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -42,6 +43,11 @@ Route::group(['middleware' => 'jwt.auth'], static function(){
     });
 
     Route::get('postList',[PostController::class,'listPosts'])->name('post.list');
+
+    Route::group(['namespace' => 'Api','prefix'=>'post'], static function () {
+        Route::post('store', [ApiPostController::class, 'store'])->name('api.post.store');
+        Route::patch('update', [ApiPostController::class, 'update'])->name('api.post.update');
+    });
 });
 
 
