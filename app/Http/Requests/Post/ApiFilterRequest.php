@@ -24,6 +24,7 @@ class ApiFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => 'int',
             'title' => 'string',
             'content' => 'string',
             'image' => 'string',

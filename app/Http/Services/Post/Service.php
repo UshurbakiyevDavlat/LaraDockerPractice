@@ -41,15 +41,24 @@ class Service
     public function update($post, $data)
     {
         $tags = $data['tags'];
-        unset($data['tags']);
+        $category = $data['category'];
+        unset($data['tags'],$data['category']);
         try {
+            $category_origin = Category::find($category['id']);
+            $data['category_id'] = $category['id'];
+            $category_origin->update($category);
+            $tagIds = $this->getTagIdsForUpdate($tags);
+
+            $post = Post::find($data['id']);
             $post->update($data);
-            $post->tags()->sync($tags);
+            $post->tags()->sync($tagIds);
+
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return \response('error see logs');
         }
-        return $post->refresh();
+        $post->refresh();
+        return new ApiPostResource($post);
     }
 
     private function getCatIds ($category) {
@@ -65,5 +74,15 @@ class Service
             $tagIds[] = $tag->id;
         }
         return $tagIds;
+    }
+
+    private function getTagIdsForUpdate ($tags): array
+    {
+        $tagsIds = [];
+        foreach ($tags as $tag) {
+            $tag = Tag::updateOrCreate(['id' => $tag['id']], $tag);
+            $tagsIds[] = $tag->id;
+        }
+        return $tagsIds;
     }
 }

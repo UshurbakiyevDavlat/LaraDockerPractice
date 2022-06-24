@@ -37,11 +37,11 @@ class PostController extends Controller
      *
      * @param ApiFilterRequest $request
      * @param Post $post
-     *
+     * @return ApiPostResource|Application|ResponseFactory|Response
      */
-    public function update(ApiFilterRequest $request, Post $post): void
+    public function update(ApiFilterRequest $request, Post $post)
     {
         $data = $request->validated();
-        $this->service->store($post, $data);
+        return $this->service->update($post, $data);
     }
 }
