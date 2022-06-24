@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Post;
 
+use App\Http\Resources\ApiPostResource;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -34,7 +35,7 @@ class Service
             Log::error($exception->getMessage());
             return response(['message'=>'error_see_logs'],400);
         }
-        return $post;
+        return new ApiPostResource($post);
     }
 
     public function update($post, $data)
