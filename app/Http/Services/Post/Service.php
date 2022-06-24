@@ -3,6 +3,7 @@
 namespace App\Http\Services\Post;
 
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -24,7 +25,7 @@ class Service
             $catId = $this->getCatIds($category);
             $data['category_id'] = $catId;
 
-            $post->create($data);
+            $post = $post->create($data);
             $post->tags()->attach($tagIds, ['created_at' => date('Y-m-d H:i:s')]);
 
             DB::commit();
